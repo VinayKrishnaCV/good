@@ -40,7 +40,7 @@ function setup(){
     constrainedLog = new Log(300,200,100,0)
     
     bird = new Bird(100,100);
-    chain=new Chain(bird.body,constrainedLog.body);
+    chain=new Slingshot(bird.body,{x:100,y:100});
 }
 
 function draw(){
@@ -65,6 +65,13 @@ function draw(){
     log5.display();
     constrainedLog.display();
     bird.display();
-    platform.display();
     chain.display();
+    platform.display();
+}
+
+function mouseDragged (){
+    Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY})
+}
+function mouseReleased () {
+    chain.fly();
 }
