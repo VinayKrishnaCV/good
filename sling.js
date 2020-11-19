@@ -16,7 +16,7 @@ class Slingshot{
             var p1 = this.sling.bodyA.position
             var p2 = this.sling.pointB
             imageMode(CENTER)
-            if(p1.x<180){
+            if(p1.x<190){
                 image(this.sling3,p1.x-20,p1.y,15,25)
                 stroke(48, 22, 8);
                 strokeWeight(5);
@@ -34,5 +34,8 @@ class Slingshot{
     }
     fly(){
         this.sling.bodyA=null;
+    }
+    attach(body){
+        this.sling.bodyA=body
     }
 }
