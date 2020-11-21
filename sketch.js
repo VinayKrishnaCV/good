@@ -9,6 +9,49 @@ var backgroundImg,platform;
 var constrainedLog
 var chain
 var catapult1,catapult2
+var gameState="on sling"
+
+// Data types in Javascript
+    //String
+    var string = "This is a string"
+    console.log(string)
+
+    //Number
+    var num = 12
+    console.log(num)
+
+    //Boolean
+    var bool = true
+    console.log(bool)
+
+    //undefined
+    var object;
+    console.log(object)
+
+    //null
+    object = null
+    console.log(object)
+
+    // Array
+    var arr1 = [1,2,3,4,5]
+    console.log(arr1)
+
+    var arr2 = [12, "Hello", true,object]
+    console.log(arr2)
+
+    var arr3 = [[1,2],[2,3],[3,4],arr1]
+    console.log(arr3)
+
+    console.log(arr3[0])
+    console.log(arr3[0][1] + " " + arr3[3][0])
+    console.log(arr3.length)
+
+    arr3.push([6,7])
+    console.log(arr3)
+
+    arr3.pop();
+    console.log(arr3)
+
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -42,7 +85,7 @@ function setup(){
 
     constrainedLog = new Log(300,200,100,0)
     
-    bird = new Bird(100,100);
+    bird = new Bird(188,86);
     chain=new Slingshot(bird.body,{x:182,y:72});
 }
 
@@ -63,6 +106,7 @@ function draw(){
     log4.display();
     log5.display();
     image(catapult1,179,45)
+    fill(20)
     text(mouseX+","+mouseY,mouseX,mouseY)
     bird.display();
     chain.display();
@@ -71,15 +115,22 @@ function draw(){
 }
 
 function mouseDragged (){
-    Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY})
+    if(gameState==="on sling"){
+        Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY})
+    }
 }
 function mouseReleased () {
     chain.fly();
+    gameState="Launchified"
 }
 function keyPressed(){
-    if(keyCode===32){
-        Matter.Body.setPosition(bird.body,{x:182,y:72})
-        chain.attach(bird.body);
-        Matter.Body.setAngle(bird.body,0)
+    if(gameState==="Launchified"){
+        if(keyCode===32){
+            Matter.Body.setPosition(bird.body,{x:182,y:72})
+            chain.attach(bird.body);
+            Matter.Body.setAngle(bird.body,0)
+            gameState="on sling"
+            bird.trail=[]
+        }
     }
 }
