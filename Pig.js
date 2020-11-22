@@ -17,5 +17,10 @@ class Pig extends BaseClass {
     }
     //console.log(this.body.speed);
   }
+  scoire(){
+    if(this.visiblity<255&&this.visiblity>-790){
+      score++
+    }
+  }
 
 };

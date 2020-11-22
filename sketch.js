@@ -1,3 +1,4 @@
+
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
@@ -9,7 +10,8 @@ var backgroundImg,platform;
 var constrainedLog
 var chain
 var catapult1,catapult2
-var gameState="on sling"
+var gameState="on sling";
+var score=0;
 
 // Data types in Javascript
     //String
@@ -54,9 +56,9 @@ var gameState="on sling"
 
 
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
     catapult1 = loadImage("sprites/sling1.png");
     catapult2 = loadImage("sprites/sling2.png");
+    getBackgroundIMG()
 }
 
 function setup(){
@@ -90,7 +92,11 @@ function setup(){
 }
 
 function draw(){
-    background(backgroundImg);
+    if(backgroundImg){
+        background(backgroundImg);
+    } 
+    fill(255)
+    text("score:"+score,617,13)  
     Engine.update(engine);
     box1.display();
     box2.display();
@@ -112,6 +118,8 @@ function draw(){
     chain.display();
     image(catapult2,150,40)
     platform.display();
+    pig1.scoire();
+    pig3.scoire();
 }
 
 function mouseDragged (){
@@ -129,8 +137,28 @@ function keyPressed(){
             Matter.Body.setPosition(bird.body,{x:182,y:72})
             chain.attach(bird.body);
             Matter.Body.setAngle(bird.body,0)
-            gameState="on sling"
+            gameState="on sling"//e
             bird.trail=[]
         }
     }
+}
+
+//synchronously
+async function getBackgroundIMG(){
+    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata")
+
+    var responseJSON = await response.json();
+    //console.log(responseJSON)
+
+    var DatetoTime= responseJSON.datetime
+    //console.log(DatetoTime)
+
+    var hour = DatetoTime.slice(11,13)
+    console.log(hour)
+    if(hour>=06 && hour<12){
+       bg =  "sprites/bg.png"
+    }else{
+        bg = "sprites/bg2.jpg"
+    }
+    backgroundImg = loadImage(bg);
 }
