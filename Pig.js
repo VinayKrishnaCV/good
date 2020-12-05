@@ -13,12 +13,12 @@ class Pig extends BaseClass {
         tint(255,this.visiblity)
         image(this.image,this.body.position.x,this.body.position.y,50,50)
         this.visiblity-=10;
-        pop();
+      pop();
     }
     //console.log(this.body.speed);
   }
   scoire(){
-    if(this.visiblity<255&&this.visiblity>-790){
+    if(this.visiblity<255&&this.visiblity>-750){
       score++
     }
   }

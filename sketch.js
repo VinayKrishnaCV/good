@@ -94,6 +94,8 @@ function setup(){
 function draw(){
     if(backgroundImg){
         background(backgroundImg);
+    }else{
+        background(200)
     } 
     fill(255)
     text("score:"+score,617,13)  
@@ -120,6 +122,8 @@ function draw(){
     platform.display();
     pig1.scoire();
     pig3.scoire();
+    text("press space to reset the bird",5,10)
+    text("press r to restart the game",5,20)
 }
 
 function mouseDragged (){
@@ -132,14 +136,16 @@ function mouseReleased () {
     gameState="Launchified"
 }
 function keyPressed(){
-    if(gameState==="Launchified"){
-        if(keyCode===32){
-            Matter.Body.setPosition(bird.body,{x:182,y:72})
-            chain.attach(bird.body);
-            Matter.Body.setAngle(bird.body,0)
-            gameState="on sling"//e
-            bird.trail=[]
-        }
+    if(keyCode===32&&gameState==="Launchified"){
+        Matter.Body.setPosition(bird.body,{x:182,y:72})
+        Matter.Body.setAngularVelocity(bird.body,0)
+        chain.attach(bird.body);
+        Matter.Body.setAngle(bird.body,0)
+        gameState="on sling"
+        bird.trail=[]
+    }
+    if(keyCode===82&&score===200){
+        window.location.reload();
     }
 }
 

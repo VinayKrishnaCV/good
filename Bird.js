@@ -8,7 +8,7 @@ class Bird extends BaseClass {
 
   display() {
     super.display();
-    if(this.body.position.x>200&&this.body.speed>20){
+    if(this.body.position.x>200&&this.body.speed>20&&gameState==="Launchified"){
      var position = [this.body.position.x,this.body.position.y]
      this.trail.push(position)
     }
